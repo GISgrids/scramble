@@ -20,8 +20,8 @@
 
 **nf-core/nfcorescramble** is a bioinformatics pipeline that analyses BAM files to predict mobile element insertions or deletions (MEIs or MEDs). It does so accordingly in two steps:
 
-1. Identifies cluster reads from a BAM file and outputs a TXT file.
-2. Analyses cluster reads from the TXT file in step 1 and outputs a VCF file as well as an MEI TXT file or MED TXT file depending on the parameters chosen for analysis.
+1. CLUSTER_IDENTIFIER: Identifies cluster reads from a BAM file and outputs a TXT file.
+2. CLUSTER_ANALYSIS: Analyses cluster reads from the TXT file in step 1 and outputs a VCF file as well as an MEI.TXT file or MED.TXT file depending on the parameters chosen for analysis.
 
 ## Usage
 
@@ -44,7 +44,7 @@ Each row represents a fastq file (single-end) or a pair of fastq files (paired e
 
 -->
 
-Now, you can run the pipeline using:
+Now, you can run the pipeline using (run main.nf instead because this pipeline has not been uploaded to nf-core):
 
 <!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
 
