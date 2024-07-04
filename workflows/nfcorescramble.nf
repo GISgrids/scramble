@@ -1,15 +1,18 @@
+// NOT IN USE BY THE PIPELINE. IGNORE THIS WORKFLOW AND USE ~/main.nf.
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { FASTQC                 } from '../modules/nf-core/fastqc/main'
-include { MULTIQC                } from '../modules/nf-core/multiqc/main'
-include { paramsSummaryMap       } from 'plugin/nf-validation'
-include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_nfcorescramble_pipeline'
+include { FASTQC                     } from '../modules/nf-core/fastqc/main'
+include { MULTIQC                    } from '../modules/nf-core/multiqc/main'
+include { SCRAMBLE_CLUSTERANALYSIS   } from '../modules/nf-core/scramble/clusteranalysis'
+include { SCRAMBLE_CLUSTERIDENTIFIER } from '../modules/nf-core/scramble/clusteridentifier'
+include { paramsSummaryMap           } from 'plugin/nf-validation'
+include { paramsSummaryMultiqc       } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { softwareVersionsToYAML     } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText     } from '../subworkflows/local/utils_nfcore_nfcorescramble_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -18,23 +21,18 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_nfco
 */
 
 workflow NFCORESCRAMBLE {
-
+    /*
     take:
     ch_samplesheet // channel: samplesheet read in from --input
-
+    */
     main:
-
+    // Create input channels
     ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
 
-    //
-    // MODULE: Run FastQC
-    //
-    FASTQC (
-        ch_samplesheet
-    )
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    // MODULES: Run cluster identifier followed by cluster analysis
+
+    SCRAMBLE_CLUSTERIDENTIFIER(ch_clusteridentifier_input) \
+        | SCRAMBLE_CLUSTERANALYSIS()
 
     //
     // Collate and save software versions
@@ -47,7 +45,7 @@ workflow NFCORESCRAMBLE {
             newLine: true
         ).set { ch_collated_versions }
 
-    //
+    /*
     // MODULE: MultiQC
     //
     ch_multiqc_config        = Channel.fromPath(
@@ -85,9 +83,9 @@ workflow NFCORESCRAMBLE {
         ch_multiqc_custom_config.toList(),
         ch_multiqc_logo.toList()
     )
+    */
 
     emit:
-    multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
     versions       = ch_versions                 // channel: [ path(versions.yml) ]
 }
 

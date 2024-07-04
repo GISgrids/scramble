@@ -1,11 +1,11 @@
 process SCRAMBLE_CLUSTERIDENTIFIER {
-    tag "$meta.id"
+    tag "$meta"
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/scramble:1.0.1--h779adbc_1':
-        'biocontainers/scramble:1.0.1--h779adbc_1' }"
+        'biocontainers/scramble:1.0.2--h031d066_1' }"
 
     input:
     tuple val(meta), path(input), path(input_index)
@@ -20,8 +20,8 @@ process SCRAMBLE_CLUSTERIDENTIFIER {
 
     script:
     def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
-    def VERSION = '1.0.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def prefix = task.ext.prefix ?: "${meta}"
+    def VERSION = '1.0.2' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
 
     // The tool does not contain a way to specify the reference file when using CRAM files.
     // It just looks in the header of the CRAM file where the reference file is located,
@@ -31,10 +31,9 @@ process SCRAMBLE_CLUSTERIDENTIFIER {
     // the REF_PATH environment variable. This way the tool uses the correct reference.
     // An issue has been made about this: https://github.com/GeneDx/scramble/issues/27
     // The reference code is a placeholder until this issue has been fixed.
-    def reference = fasta ? "wget https://raw.githubusercontent.com/samtools/samtools/master/misc/seq_cache_populate.pl && perl seq_cache_populate.pl -root ./md5_ref ${fasta} && export REF_PATH=`pwd`/md5_ref/%2s/%2s/%s" : ""
+    //def reference = fasta ? "wget https://raw.githubusercontent.com/samtools/samtools/master/misc/seq_cache_populate.pl && perl seq_cache_populate.pl -root ./md5_ref ${fasta} && export REF_PATH=`pwd`/md5_ref/%2s/%2s/%s" : ""
+    
     """
-    ${reference}
-
     cluster_identifier \\
         ${args} \\
         ${input} \\

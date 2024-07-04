@@ -1,11 +1,11 @@
 process SCRAMBLE_CLUSTERANALYSIS {
-    tag "$meta.id"
+    tag "$meta"
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/scramble:1.0.1--h779adbc_1':
-        'biocontainers/scramble:1.0.1--h779adbc_1' }"
+        'https://depot.galaxyproject.org/singularity/scramble:1.0.2--h031d066_1':
+        'biocontainers/scramble:1.0.2--h031d066_1' }"
 
     input:
     tuple val(meta), path(clusters)
@@ -23,8 +23,8 @@ process SCRAMBLE_CLUSTERANALYSIS {
 
     script:
     def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
-    def VERSION = '1.0.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def prefix = task.ext.prefix ?: "${meta}"
+    def VERSION = '1.0.2' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
 
     def blastdb = args.contains("--eval-dels") ? "makeblastdb -in ${fasta} -parse_seqids -title ${fasta} -dbtype nucl -out ${fasta}" : ""
     def reference = fasta ? "--ref `pwd`/${fasta}" : ""
@@ -38,11 +38,11 @@ process SCRAMBLE_CLUSTERANALYSIS {
 
     Rscript --vanilla /usr/local/share/scramble/bin/SCRAMble.R \\
         --install-dir /usr/local/share/scramble/bin \\
-        ${args} \\
         --cluster-file `pwd`/${clusters} \\
         ${reference} \\
         --mei-refs ${mei_reference} \\
         --out-name `pwd`/${prefix}
+        --eval-meis
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

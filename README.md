@@ -5,8 +5,7 @@
   </picture>
 </h1>
 
-[![GitHub Actions CI Status](https://github.com/nf-core/nfcorescramble/actions/workflows/ci.yml/badge.svg)](https://github.com/nf-core/nfcorescramble/actions/workflows/ci.yml)
-[![GitHub Actions Linting Status](https://github.com/nf-core/nfcorescramble/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/nfcorescramble/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/nfcorescramble/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/nfcorescramble/results)
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
 
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A523.04.0-23aa62.svg)](https://www.nextflow.io/)
@@ -20,16 +19,6 @@
 ## Introduction
 
 **nf-core/nfcorescramble** is a bioinformatics pipeline that analyses BAM files to predict mobile element insertions or deletions (MEIs or MEDs). It does so accordingly in two steps:
-
-<!-- TODO nf-core:
-   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
-   major pipeline sections and the types of output it produces. You're giving an overview to someone new
-   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
--->
-
-<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
-     workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
 1. Identifies cluster reads from a BAM file and outputs a TXT file.
 2. Analyses cluster reads from the TXT file in step 1 and outputs a VCF file as well as an MEI TXT file or MED TXT file depending on the parameters chosen for analysis.
@@ -83,6 +72,10 @@ For more details about the output files and reports, please refer to the
 nf-core/nfcorescramble was originally written by Kwai Wei.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
+
+Ethan
+Zhihui
+Joanna 
 
 <!-- TODO nf-core: If applicable, make list of people who have also contributed -->
 
