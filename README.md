@@ -19,7 +19,7 @@
 
 ## Introduction
 
-**nf-core/nfcorescramble** is a bioinformatics pipeline that analyses BAM files to predict mobile element insertions or deletions (MEIs or MEDs). It does so accordingly in two steps:
+**nf-core/nfcorescramble** is a bioinformatics pipeline that ...
 
 <!-- TODO nf-core:
    Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
@@ -31,8 +31,8 @@
      workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
-1. Identifies cluster reads from a BAM file and outputs a TXT file.
-2. Analyses cluster reads from the TXT file in step 1 and outputs a VCF file as well as an MEI TXT file or MED TXT file depending on the parameters chosen for analysis.
+1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
+2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
 
 ## Usage
 
