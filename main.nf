@@ -17,11 +17,11 @@ nextflow.enable.dsl = 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { NFCORESCRAMBLE          } from './workflows/nfcorescramble'
+include { NFCORESCRAMBLE  } from './workflows/nfcorescramble'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_nfcorescramble_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_nfcorescramble_pipeline'
+
 include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_nfcorescramble_pipeline'
-include { SCRAMBLE                } from './modules/nf-core/scramble'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
