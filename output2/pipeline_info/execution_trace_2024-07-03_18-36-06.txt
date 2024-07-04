@@ -1,0 +1,3 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+1	5f/edbec5	14129	SCRAMBLE_CLUSTERIDENTIFIER (sample)	COMPLETED	0	2024-07-03 18:36:09.180	1.9s	0ms	72.7%	3.1 MB	5.4 MB	1.1 MB	613 B
+2	17/17598c	14808	SCRAMBLE_CLUSTERANALYSIS (sample)	FAILED	1	2024-07-03 18:36:11.234	39.1s	39.1s	-	-	-	-	-

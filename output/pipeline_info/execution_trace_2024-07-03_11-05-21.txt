@@ -1,0 +1,3 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+2	2c/a362b8	19792	SCRAMBLE_CLUSTERIDENTIFIER (HG00514)	FAILED	2	2024-07-03 11:05:24.457	1.1s	1.1s	-	-	-	-	-
+1	c8/afdb2a	20396	SCRAMBLE_CLUSTERIDENTIFIER (HG00096)	FAILED	2	2024-07-03 11:05:25.575	1s	1s	-	-	-	-	-

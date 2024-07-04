@@ -1,0 +1,4 @@
+sample,bam,bai
+HG00096,/home/plancktronjr/GIS-intern/data/sg100k-test-data/HG00096.subsample15x.chr22.bam,/home/plancktronjr/GIS-intern/data/sg100k-test-data/HG00096.subsample15x.chr22.bam.bai
+HG00514,/home/plancktronjr/GIS-intern/data/sg100k-test-data/HG00514.subsample15x.chr22.bam,/home/plancktronjr/GIS-intern/data/sg100k-test-data/HG00514.subsample15x.chr22.bam.bai
+HG02492,/home/plancktronjr/GIS-intern/data/sg100k-test-data/HG02492.subsample15x.chr22.bam,/home/plancktronjr/GIS-intern/data/sg100k-test-data/HG02492.subsample15x.chr22.bam.bai
