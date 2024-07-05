@@ -1,11 +1,12 @@
 process SCRAMBLE_CLUSTERANALYSIS {
     tag "$meta"
     label 'process_single'
-
+    debug true
+    
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/scramble:1.0.2--h031d066_1':
-        'biocontainers/scramble:1.0.2--h031d066_1' }"
+        'https://depot.galaxyproject.org/singularity/scramble:1.0.1--h779adbc_1':
+        'biocontainers/scramble:1.0.1--h779adbc_1' }"
 
     input:
     tuple val(meta), path(clusters)
@@ -24,9 +25,9 @@ process SCRAMBLE_CLUSTERANALYSIS {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta}"
-    def VERSION = '1.0.2' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def VERSION = '1.0.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
 
-    def blastdb = args.contains("--eval-dels") ? "makeblastdb -in ${fasta} -parse_seqids -title ${fasta} -dbtype nucl -out ${fasta}" : ""
+    // def blastdb = args.contains("--eval-dels") ? "makeblastdb -in ${fasta} -parse_seqids -title ${fasta} -dbtype nucl -out ${fasta}" : ""
     def reference = fasta ? "--ref `pwd`/${fasta}" : ""
 
     // The default file for the MEI reference is a file that's inside the container
@@ -34,15 +35,15 @@ process SCRAMBLE_CLUSTERANALYSIS {
 
     def blastdb_version = args.contains("--eval-dels") ? "makeblastdb: \$(echo \$(makeblastdb -version 2>&1) | head -n 1 | sed 's/^makeblastdb: //; s/+ Package.*\$//')" : ""
     """
-    ${blastdb}
+    makeblastdb -in `pwd`/${fasta} -dbtype nucl
 
     Rscript --vanilla /usr/local/share/scramble/bin/SCRAMble.R \\
         --install-dir /usr/local/share/scramble/bin \\
         --cluster-file `pwd`/${clusters} \\
         ${reference} \\
         --mei-refs ${mei_reference} \\
-        --out-name `pwd`/${prefix}
-        --eval-meis
+        --out-name `pwd`/${prefix} \\
+        --eval-dels
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

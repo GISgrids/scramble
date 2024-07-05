@@ -1,11 +1,12 @@
 process SCRAMBLE_CLUSTERIDENTIFIER {
     tag "$meta"
     label 'process_single'
-
+    debug true
+    
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/scramble:1.0.1--h779adbc_1':
-        'biocontainers/scramble:1.0.2--h031d066_1' }"
+        'biocontainers/scramble:1.0.1--h779adbc_1' }"
 
     input:
     tuple val(meta), path(input), path(input_index)
@@ -21,7 +22,7 @@ process SCRAMBLE_CLUSTERIDENTIFIER {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta}"
-    def VERSION = '1.0.2' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def VERSION = '1.0.1' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
 
     // The tool does not contain a way to specify the reference file when using CRAM files.
     // It just looks in the header of the CRAM file where the reference file is located,

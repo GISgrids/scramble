@@ -9,3 +9,5 @@ testing*
 input.csv
 null/
 output/
+temp*
+test
